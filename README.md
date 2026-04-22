@@ -1,137 +1,161 @@
 <div align="center">
   <h1>🚔 India Crime Predictor AI</h1>
-  <p><b>An Advanced Machine Learning-based Crime Analysis & Forecasting System</b></p>
-  <img src="https://img.shields.io/badge/Python-3.x-blue.svg?style=for-the-badge&logo=python" alt="Python" />
-  <img src="https://img.shields.io/badge/Flask-Web%20Framework-lightgrey.svg?style=for-the-badge&logo=flask" alt="Flask" />
-  <img src="https://img.shields.io/badge/Machine%20Learning-Scikit--Learn-orange.svg?style=for-the-badge&logo=scikit-learn" alt="Scikit-Learn" />
-  <img src="https://img.shields.io/badge/License-MIT-success.svg?style=for-the-badge" alt="License" />
+  <p><b>AI-Powered Crime Analytics & Forecasting Platform</b></p>
+
+  <img src="https://img.shields.io/badge/Python-3.x-blue.svg?style=for-the-badge&logo=python"/>
+  <img src="https://img.shields.io/badge/Flask-Backend-lightgrey.svg?style=for-the-badge&logo=flask"/>
+  <img src="https://img.shields.io/badge/Machine%20Learning-Scikit--Learn-orange.svg?style=for-the-badge&logo=scikit-learn"/>
+  <img src="https://img.shields.io/badge/Status-Live-success?style=for-the-badge"/>
 </div>
 
-<br>
+---
+
+## 🌐 Live Demo
+
+🚀 **Deployed Application:**  
+👉 https://india-crime-predictor.onrender.com/
+
+> Fully functional cloud-hosted ML system accessible in real-time.
+
+---
 
 ## 📌 Overview
 
-**India Crime Predictor AI** is an intelligent, full-stack data analytics and forecasting platform. Built with Python and Flask, it processes historical crime data across Indian states and union territories to uncover hidden patterns, visualize insights via interactive maps, and predict future crime trends using robust Machine Learning models.
+**India Crime Predictor AI** is a full-stack intelligent analytics and forecasting system that analyzes historical crime data across India to generate insights, detect anomalies, and predict future crime trends.
 
-Unlike a simple dashboard, this platform provides **automated anomaly detection**, **risk categorization**, and **predictive modeling** to assist law enforcement agencies, policymakers, and researchers in making data-driven decisions.
+The platform combines **Machine Learning, Data Analytics, and Visualization** to support:
+
+- 👮 Law Enforcement Agencies  
+- 🏛️ Policymakers  
+- 📊 Researchers  
 
 ---
 
 ## ✨ Key Features
 
-- **📊 Comprehensive Data Analytics:** State-wise and district-level crime insights filtered by IPC and SLL categories.
-- **🗺️ Interactive Geo-Spatial Maps:** Dynamic mapping and heatmaps to visualize high-risk zones and crime concentration.
-- **🤖 Predictive Forecasting:** Time-series forecasting using linear regression and advanced statistical modeling to predict future crime volumes.
-- **⚡ Real-time Anomaly Detection:** Instantly identifies statistical anomalies in crime rates for proactive intervention.
-- **📑 Automated PDF Reports:** One-click generation of professional "Intelligence & Risk Reports" for immediate sharing.
-- **🌐 Dynamic Web Interface:** A fast, responsive, and intuitive web application powered by Flask.
+- 📊 State-wise & district-level crime analytics  
+- 🗺️ Interactive geo-spatial heatmaps  
+- 🤖 Time-series crime prediction (ML models)  
+- ⚡ Anomaly detection system  
+- 📑 Automated PDF report generation  
+- 🌐 Dynamic Flask-based web interface  
 
 ---
 
-## 🛠️ Technology Stack
+## 🧠 Machine Learning Workflow
+
+
+Data Collection (CSV)
+↓
+Data Cleaning (Pandas)
+↓
+Feature Engineering
+↓
+Model Training (Linear Regression / XGBoost)
+↓
+Prediction
+↓
+Visualization (Charts + Maps)
+↓
+PDF Report Generation
+
+
+---
+
+## 🛠️ Tech Stack
 
 | Category | Technologies |
-| --- | --- |
-| **Backend Framework** | Flask, Python |
-| **Machine Learning** | Scikit-Learn, XGBoost, Numpy |
-| **Data Processing** | Pandas |
-| **Visualization** | Matplotlib, Seaborn, Plotly, Folium |
-| **Report Generation** | ReportLab |
-| **Deployment Prep** | Gunicorn (WSGI), Vercel Configuration |
+|---------|-------------|
+| Backend | Flask, Python |
+| ML | Scikit-Learn, XGBoost |
+| Data | Pandas, NumPy |
+| Visualization | Matplotlib, Plotly, Folium |
+| Reports | ReportLab |
+| Deployment | Gunicorn, Render |
+
+---
+
+## 📡 API Endpoints
+
+- `GET /api/stats` → National insights  
+- `GET /api/state_analysis` → State data  
+- `GET /api/predict` → Forecast predictions  
+- `GET /api/export/pdf` → Download report  
+- `GET /api/export/csv` → Export dataset  
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-Make sure you have Python 3.8+ installed on your system.
-
-### 1. Installation
-Clone the repository and set up a virtual environment:
+### 🔧 Installation
 
 ```bash
 git clone https://github.com/your-username/IndiaCrimePredictor.git
 cd IndiaCrimePredictor
 
-# Create and activate virtual environment
 python -m venv venv
-# On Windows:
 venv\Scripts\activate
-# On Mac/Linux:
-source venv/bin/activate
 
-# Install dependencies
 pip install -r requirements.txt
-```
-
-### 2. Run the Application
-Start the Flask development server:
-```bash
+▶️ Run Project
 python app.py
-```
-Open your browser and navigate to: **`http://127.0.0.1:5000`**
 
----
+👉 Open: http://127.0.0.1:5000
 
-## 📡 API Endpoints Overview
+☁️ Deployment
+✅ Render (Live)
 
-The application exposes several RESTful APIs used by the frontend for dynamic updates:
+Project deployed using:
 
-- `GET /api/stats` - Fetches high-level KPIs, top states, and national forecasts.
-- `GET /api/state_analysis` - Retrieves deep-dive historical data, risk levels, and forecasts for a specific state.
-- `GET /api/predict` - Generates multi-year predictive trends globally or categorically.
-- `GET /api/export/pdf` - Generates and downloads a comprehensive PDF intelligence report.
-- `GET /api/export/csv` - Downloads the processed and cleaned dataset as a CSV file.
+gunicorn app:app
 
----
+Steps:
 
-## ☁️ Deployment
-
-This project is fully prepared for cloud deployment. 
-
-### Option 1: Render / Heroku (Recommended)
-The project includes a `Procfile` and `gunicorn` in the requirements. 
-1. Push your code to GitHub.
-2. Link your repository in the **Render** dashboard.
-3. Render will automatically install dependencies and launch the app using `gunicorn app:app`.
-
-### Option 2: Vercel
-A `vercel.json` file is included for Vercel deployment. 
-*Note: Vercel serverless functions have a strict 250MB size limit. Due to the size of ML libraries and datasets, deploying on Render is highly recommended over Vercel.*
-
----
-
-## 📂 Project Structure
-
-```text
+Push code to GitHub
+Connect to Render
+Auto deploy
+📂 Project Structure
 IndiaCrimePredictor/
-├── app.py                   # Main Flask Application & API Routes
-├── forecasting_utils.py     # ML forecasting, risk & anomaly logic
-├── dataset/                 # Crime & Population Datasets (CSV)
-├── static/                  # CSS, JS, and Images for the frontend
-├── templates/               # HTML templates (Jinja2)
-├── Procfile                 # Deployment configuration for Render/Heroku
-├── vercel.json              # Deployment configuration for Vercel
-├── requirements.txt         # Python dependencies
-└── README.md                # Project documentation
-```
+├── app.py
+├── forecasting_utils.py
+├── dataset/
+├── static/
+├── templates/
+├── Procfile
+├── vercel.json
+├── requirements.txt
+└── README.md
+⚠️ Limitations
+Accuracy depends on dataset quality
+Predictions are statistical estimates
+Not a replacement for real policing systems
+🔮 Future Scope
+NCRB Live API Integration
+LSTM Deep Learning Model
+Mobile Application
+Real-time monitoring system
+👨‍💻 Project Team
+🚀 Developed By
 
----
+Ritik Gupta
+Full Stack Developer & ML Engineer
 
-## ⚠️ Limitations & Disclaimers
-- **Data Dependency:** Forecast accuracy is strictly dependent on the quality of historical data.
-- **Not a Replacement:** Predictions are statistical estimates and should be used to augment, not replace, human operational intelligence.
+Rohit Madhesiya
+Backend Developer
 
----
+Riya Kumari
+Frontend Developer
 
-## 🔮 Future Enhancements
-- Integration of live API feeds from NCRB (National Crime Records Bureau).
-- Implementation of Deep Learning (LSTM) for complex time-series pattern recognition.
-- Dedicated mobile application dashboard for on-field officers.
+🤝 Contributions
+Ritik Gupta
+ML Model & Prediction System
+Backend API Development
+Rohit Madhesiya
+Data Processing & Backend Logic
+Riya Kumari
+UI/UX Design & Frontend
+📜 License
 
----
+MIT License © 2026
 
-<div align="center">
-  <p><b>Built with ❤️ for Data-Driven Governance</b></p>
-  <p>MIT License © 2026</p>
-</div>
+<div align="center"> <h3>🚀 Built for Data-Driven Governance</h3> </div> ```
