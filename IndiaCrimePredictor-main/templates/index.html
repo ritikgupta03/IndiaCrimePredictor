@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Crime Intelligence System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="dark-mode">
+    <div id="loader" class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <!-- Header -->
+        <header class="d-flex justify-content-between align-items-center mb-4 glass p-4 rounded-4">
+            <div>
+                <h1 class="h2 m-0 gradient-text fw-bold">🇮🇳 India Crime Intelligence & Risk Prediction</h1>
+                <p class="text-muted mb-0">Advanced Analytics & Machine Learning Dashboard</p>
+            </div>
+            <div class="d-flex gap-3 align-items-center">
+                <select id="crimeTypeSelect" class="form-select bg-dark text-white border-secondary rounded-pill px-4"
+                    style="width: auto;">
+                    <option value="all" selected>All Categories</option>
+                    <option value="ipc">IPC Only</option>
+                    <option value="sll">SLL Only</option>
+                </select>
+                <div class="btn-group bg-dark rounded-pill p-1 border border-secondary" role="group">
+                    <input type="radio" class="btn-check" name="metricType" id="metricAbsolute" checked>
+                    <label class="btn btn-sm btn-outline-info rounded-pill px-3 border-0" for="metricAbsolute">Absolute
+                        Count</label>
+                    <input type="radio" class="btn-check" name="metricType" id="metricPerCapita">
+                    <label class="btn btn-sm btn-outline-info rounded-pill px-3 border-0" for="metricPerCapita">Per 100k
+                        Population</label>
+                </div>
+                <select id="yearSelect" class="form-select bg-dark text-white border-secondary rounded-pill px-4"
+                    style="width: auto;">
+                    <option value="2025" selected>Year: 2025</option>
+                    <option value="2024">Year: 2024</option>
+                    <option value="2023">Year: 2023</option>
+                    <option value="2022">Year: 2022</option>
+                    <option value="2021">Year: 2021</option>
+                    <option value="2020">Year: 2020</option>
+                    <option value="2019">Year: 2019</option>
+                    <option value="2018">Year: 2018</option>
+                    <option value="2017">Year: 2017</option>
+                    <option value="2016">Year: 2016</option>
+                    <option value="2015">Year: 2015</option>
+                </select>
+                <select id="stateSelect" class="form-select bg-dark text-white border-secondary rounded-pill px-4"
+                    style="width: auto;">
+                    <option value="" selected disabled>Select State</option>
+                </select>
+                <button id="themeToggle"
+                    class="btn btn-outline-secondary rounded-pill px-3 d-flex align-items-center gap-2">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeText">Dark</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- State-Specific Analysis Section -->
+        <div id="stateIntelligenceSection" class="row mb-4 d-none">
+            <div class="col-12">
+                <div class="glass p-4 rounded-4 border-start border-info border-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold m-0"><span id="analysisStateName" class="text-info">State</span> -
+                            Intelligence Insight</h4>
+                        <div class="p-2 px-3 rounded-pill bg-info bg-opacity-10 text-info fw-bold">
+                            Risk Level: <span id="stateRiskStatus">Low</span>
+                        </div>
+                    </div>
+                    <div class="row g-4 align-items-center">
+                        <div class="col-lg-5">
+                            <h6 class="text-muted mb-3">Historical vs Predicted Local Trend</h6>
+                            <div id="statePlotlyTrend" style="height: 350px;"></div>
+                        </div>
+                        <div class="col-lg-3 text-center border-start border-end border-white border-opacity-10">
+                            <div class="mb-4">
+                                <p class="text-muted mb-1">Total Cases in <span id="analysisYear"></span></p>
+                                <h1 id="stateCasesSelected" class="display-5 fw-bold text-white">0</h1>
+                            </div>
+                            <div class="mb-0">
+                                <p class="text-muted mb-1">AI Predicted Growth Rate (<span
+                                        id="forecastYearLabel">2025</span>)</p>
+                                <h2 id="statePredictedRate" class="fw-bold text-warning">0%</h2>
+                                <div class="d-flex justify-content-center gap-2 mt-2">
+                                    <span id="stateTrendIndicator"
+                                        class="badge bg-opacity-10 bg-warning text-warning p-2 px-3">Trend: ---</span>
+                                    <span id="stateConfidenceIndicator"
+                                        class="badge bg-opacity-10 bg-info text-info p-2 px-3">Confidence: ---</span>
+                                </div>
+                                <p class="text-muted small mt-2">Next Year Forecast: <span id="statePredictionNext"
+                                        class="fw-bold">0</span> total cases</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <h6 class="text-info mb-2 small fw-bold">📋 CRIME CATEGORY BREAKDOWN</h6>
+                                    <div class="table-responsive" style="max-height: 160px; overflow-y: auto;">
+                                        <table class="table table-dark table-hover m-0 bg-transparent x-small">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-0 text-muted py-1">Type</th>
+                                                    <th class="border-0 text-muted py-1 text-end">Cases</th>
+                                                    <th class="border-0 text-muted py-1 text-end">%</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="stateCategoryTableBody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <h6 class="text-warning mb-2 small fw-bold">📍 TOP 10 RISK DISTRICTS</h6>
+                                    <div class="table-responsive" style="max-height: 160px; overflow-y: auto;">
+                                        <table class="table table-dark table-hover m-0 bg-transparent x-small">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-0 text-muted py-1">District</th>
+                                                    <th class="border-0 text-muted py-1 text-end">Cases</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="districtTableBody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insights Banner -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="glass p-4 rounded-4 border-start border-info border-5">
+                    <h5 class="fw-bold text-info mb-2">💡 Automated Summary Insights</h5>
+                    <p id="insightText" class="mb-0 fs-5">Generating AI-driven insights...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Policy Recommendations -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="glass p-4 rounded-4 border-start border-warning border-5">
+                    <h5 class="fw-bold text-warning mb-4">🛡️ AI-Generated Policy Recommendations</h5>
+                    <div id="policyRecommendations" class="row g-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Row -->
+        <div class="row g-4">
+            <!-- Left Side: Map & Trend -->
+            <div class="col-lg-8">
+                <div class="map-container glass p-3 rounded-4 mb-4" style="height: 600px;">
+                    <div class="d-flex justify-content-between align-items-center mb-3 px-2">
+                        <h5 class="m-0 fw-bold">India States Risk & Density Map</h5>
+                        <div class="d-flex gap-2">
+                            <span class="badge bg-danger">High Risk</span>
+                            <span class="badge bg-warning text-dark">Medium</span>
+                            <span class="badge bg-success">Low</span>
+                        </div>
+                    </div>
+                    <div id="map" class="rounded-4" style="height: calc(100% - 50px);"></div>
+                </div>
+                <div class="chart-container glass p-4 rounded-4 mb-4" style="height: 400px;">
+                    <h5 class="mb-4 fw-bold">National Yearly Trend & AI Forecast (Next 3 Years)</h5>
+                    <div id="plotlyTrend" style="height: 320px;"></div>
+                </div>
+            </div>
+
+            <!-- Right Side: Distribution, Top States & Exports -->
+            <div class="col-lg-4">
+                <div class="chart-container glass p-4 rounded-4 mb-4" style="height: 400px;">
+                    <h5 class="mb-4 fw-bold">Crime Category Distribution</h5>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+                <div class="glass p-4 rounded-4 mb-4" style="height: 400px; overflow-y: auto;">
+                    <h5 class="mb-4 fw-bold">Top 10 High Crime States</h5>
+                    <div id="topStatesList" class="d-flex flex-column gap-3"></div>
+                </div>
+                <div class="export-container glass p-4 rounded-4 text-center">
+                    <h5 class="mb-3 fw-bold">Intelligence Reports</h5>
+                    <div class="d-grid gap-2">
+                        <a href="/api/export/pdf" class="btn btn-primary py-3 rounded-pill fw-bold">📄 Download PDF
+                            Report</a>
+                        <a href="/api/export/csv" class="btn btn-outline-info py-3 rounded-pill">📊 Export CSV
+                            Dataset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
