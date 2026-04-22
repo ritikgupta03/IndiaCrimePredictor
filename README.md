@@ -12,53 +12,44 @@
 
 ## 🌐 Live Demo
 
-🚀 **Deployed Application:**  
-👉 https://india-crime-predictor.onrender.com/
-
-> Fully functional cloud-hosted ML system accessible in real-time.
+🚀 https://india-crime-predictor.onrender.com/
 
 ---
 
 ## 📌 Overview
 
-**India Crime Predictor AI** is a full-stack intelligent analytics and forecasting system that analyzes historical crime data across India to generate insights, detect anomalies, and predict future crime trends.
+India Crime Predictor AI is a full-stack data analytics and forecasting system that analyzes historical crime data across India to generate insights, detect anomalies, and predict future crime trends.
 
-The platform combines **Machine Learning, Data Analytics, and Visualization** to support:
-
-- 👮 Law Enforcement Agencies  
-- 🏛️ Policymakers  
-- 📊 Researchers  
+The platform combines machine learning, data processing, and visualization to support decision-making for analysis and research purposes.
 
 ---
 
 ## ✨ Key Features
 
-- 📊 State-wise & district-level crime analytics  
+- 📊 State-wise and district-level crime analytics  
 - 🗺️ Interactive geo-spatial heatmaps  
-- 🤖 Time-series crime prediction (ML models)  
+- 🤖 Time-series crime prediction using ML models  
 - ⚡ Anomaly detection system  
 - 📑 Automated PDF report generation  
 - 🌐 Dynamic Flask-based web interface  
 
 ---
 
-## 🧠 Machine Learning Workflow
+## 🧠 Workflow
 
-
-Data Collection (CSV)
-↓
-Data Cleaning (Pandas)
-↓
-Feature Engineering
-↓
-Model Training (Linear Regression / XGBoost)
-↓
+```text
+Data Collection
+      ↓
+Data Cleaning
+      ↓
+Model Training
+      ↓
 Prediction
-↓
-Visualization (Charts + Maps)
-↓
-PDF Report Generation
-
+      ↓
+Visualization
+      ↓
+Report Generation
+```
 
 ---
 
@@ -67,21 +58,21 @@ PDF Report Generation
 | Category | Technologies |
 |---------|-------------|
 | Backend | Flask, Python |
-| ML | Scikit-Learn, XGBoost |
-| Data | Pandas, NumPy |
+| Machine Learning | Scikit-Learn, XGBoost |
+| Data Processing | Pandas, NumPy |
 | Visualization | Matplotlib, Plotly, Folium |
-| Reports | ReportLab |
+| Reporting | ReportLab |
 | Deployment | Gunicorn, Render |
 
 ---
 
 ## 📡 API Endpoints
 
-- `GET /api/stats` → National insights  
-- `GET /api/state_analysis` → State data  
-- `GET /api/predict` → Forecast predictions  
-- `GET /api/export/pdf` → Download report  
-- `GET /api/export/csv` → Export dataset  
+- `GET /api/stats`  
+- `GET /api/state_analysis`  
+- `GET /api/predict`  
+- `GET /api/export/pdf`  
+- `GET /api/export/csv`  
 
 ---
 
@@ -94,27 +85,36 @@ git clone https://github.com/your-username/IndiaCrimePredictor.git
 cd IndiaCrimePredictor
 
 python -m venv venv
+# Windows
 venv\Scripts\activate
+# Mac/Linux
+source venv/bin/activate
 
 pip install -r requirements.txt
-▶️ Run Project
+```
+
+### ▶️ Run Project
+```bash
 python app.py
+```
+Open: `http://127.0.0.1:5000`
 
-👉 Open: http://127.0.0.1:5000
+---
 
-☁️ Deployment
-✅ Render (Live)
+## ☁️ Deployment
 
-Project deployed using:
+### Render (Live)
+Command: `gunicorn app:app`
 
-gunicorn app:app
+**Steps:**
+1. Push code to GitHub
+2. Connect to Render
+3. Deploy
 
-Steps:
+---
 
-Push code to GitHub
-Connect to Render
-Auto deploy
-📂 Project Structure
+## 📂 Project Structure
+```text
 IndiaCrimePredictor/
 ├── app.py
 ├── forecasting_utils.py
@@ -125,37 +125,36 @@ IndiaCrimePredictor/
 ├── vercel.json
 ├── requirements.txt
 └── README.md
-⚠️ Limitations
-Accuracy depends on dataset quality
-Predictions are statistical estimates
-Not a replacement for real policing systems
-🔮 Future Scope
-NCRB Live API Integration
-LSTM Deep Learning Model
-Mobile Application
-Real-time monitoring system
-👨‍💻 Project Team
-🚀 Developed By
+```
 
-Ritik Gupta
-Full Stack Developer & ML Engineer
+---
 
-Rohit Madhesiya
-Backend Developer
+## ⚠️ Limitations
+- Depends on dataset quality
+- Predictions are statistical estimates
+- Not a real-time law enforcement system
 
-Riya Kumari
-Frontend Developer
+---
 
-🤝 Contributions
-Ritik Gupta
-ML Model & Prediction System
-Backend API Development
-Rohit Madhesiya
-Data Processing & Backend Logic
-Riya Kumari
-UI/UX Design & Frontend
-📜 License
+## 🔮 Future Scope
+- NCRB API integration
+- Deep Learning (LSTM)
+- Mobile application
+- Real-time monitoring
+
+---
+
+## 👨‍💻 Project Team
+- Ritik Gupta
+- Rohit Madhesiya
+- Riya Kumari
+
+---
+
+## 📜 License
 
 MIT License © 2026
 
-<div align="center"> <h3>🚀 Built for Data-Driven Governance</h3> </div> ```
+<div align="center"> 
+  <h3>🚀 Built for Data Analysis & Research</h3> 
+</div>
